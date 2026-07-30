@@ -1,7 +1,7 @@
 # Key Pair
 resource "aws_key_pair" "My_key" {
   key_name   = "${var.env}-infra-app-key"
-  public_key = file("terra-key-ec2.pub")
+  public_key = file("${path.module}/terra-key-ec2.pub")
 
 tags = {
     Environment =var.env
@@ -59,14 +59,13 @@ resource "aws_instance" "my_instance" {
 
   #meta Argument
   depends_on = [aws_security_group.my_security_group, aws_key_pair.My_key]
-                                                                              # Create multiple instances
+                                                                                 # Create multiple instances
   ami                    = var.ec2_ami_id
   instance_type          = var.instance_type
   key_name               = aws_key_pair.My_key.key_name
   vpc_security_group_ids = [aws_security_group.my_security_group.id]
-
-  user_data = file("install_nginx.sh")
-
+  user_data = file("${path.module}/install_nginx.sh")
+  
   root_block_device {
     volume_size = var.env == "prd" ? 20  : 10
     volume_type = "gp3"
