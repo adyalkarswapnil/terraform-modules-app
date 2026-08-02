@@ -10,7 +10,7 @@ module "dev-infra" {
   hash_key       = "studentId"
 }
 
-module "dev-infra" {
+module "prd-infra" {
   source = "./infra-app"
 
   env            = "prd"
@@ -21,7 +21,7 @@ module "dev-infra" {
   hash_key       = "studentId"
 }
 
-module "dev-infra" {
+module "stag-infra" {
   source = "./infra-app"
 
   env            = "stag"
