@@ -31,7 +31,7 @@ module "eks" {
     attach_cluster_primary_security_group = true
   }
 
- eks_managed_node_groups {
+ eks_managed_node_groups = {
  tws-cluster-ng = {
  instance_types = ["c7i-flex.large"]
  min_size = 2
