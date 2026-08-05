@@ -23,14 +23,9 @@ module "eks" {
 
   #control plane network
   control_plane_subnet_ids = module.vpc.intra_subnets
-  enable_cluster_creator_admin_permissions = true
 
 
   #managing nodes in the cluster
-  eks_managed_node_group_defaults = {
-    instance_types = ["c7i-flex.large"]
-    attach_cluster_primary_security_group = true
-  }
 
  eks_managed_node_groups = {
  tws-cluster-ng = {
@@ -39,6 +34,7 @@ module "eks" {
  max_size = 3
  desired_size = 2
  capacity_type = "SPOT"
+ attach_cluster_primary_security_group = true
   }
  }
 
