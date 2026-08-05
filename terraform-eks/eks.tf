@@ -23,6 +23,7 @@ module "eks" {
 
   #control plane network
   control_plane_subnet_ids = module.vpc.intra_subnets
+  enable_cluster_creator_admin_permissions = true
 
 
   #managing nodes in the cluster
@@ -42,7 +43,7 @@ module "eks" {
  }
 
     tags = {
-    Environment = "local.evn"
+    Environment = local.evn
     Terraform   = "true"
   }
 }
