@@ -26,13 +26,13 @@ module "eks" {
 
 
   #managing nodes in the cluster
-  eks_managed_node_groups_default = {
+  eks_managed_node_groups_defaults = {
 
     instance_types = ["t3.micro"]
     attach_cluster_primary_security_group = true
   }
 
- eks_managed_node_group {
+ eks_managed_node_groups {
  tws-cluster-ng = {
  instance_types = ["t3.micro"]
  min_size = 2
