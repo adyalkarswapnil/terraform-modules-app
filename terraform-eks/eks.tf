@@ -4,10 +4,13 @@ module "eks" {
   version = "~> 21.0"
 
   #cluster info(control plane)
-  name = local.name
+  name                    = local.name
+  kubernetes_version      = "1.34"
   endpoint_public_access  = true
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
+  vpc_id                  = module.vpc.vpc_id
+  subnet_ids              = module.vpc.private_subnets
+
+  enable_cluster_creator_admin_permissions = true
 
   addons = {
     vpc_cni = {
@@ -24,21 +27,20 @@ module "eks" {
   #control plane network
   control_plane_subnet_ids = module.vpc.intra_subnets
 
-
   #managing nodes in the cluster
-
- eks_managed_node_groups = {
- tws-cluster-ng = {
- instance_types = ["c7i-flex.large"]
- min_size = 2
- max_size = 3
- desired_size = 2
- capacity_type = "SPOT"
- attach_cluster_primary_security_group = true
+  eks_managed_node_groups = {
+    tws-cluster-ng = {
+      kubernetes_version                    = "1.34"
+      instance_types                        = ["c7i-flex.large"]
+      min_size                              = 2
+      max_size                              = 3
+      desired_size                          = 2
+      capacity_type                         = "SPOT"
+      attach_cluster_primary_security_group = true
+    }
   }
- }
 
-    tags = {
+  tags = {
     Environment = local.evn
     Terraform   = "true"
   }
