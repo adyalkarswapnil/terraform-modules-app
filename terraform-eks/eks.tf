@@ -13,7 +13,7 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
 
   addons = {
-    vpc_cni = {
+    vpc-cni = {
       most_recent = true
     }
     kube-proxy = {
